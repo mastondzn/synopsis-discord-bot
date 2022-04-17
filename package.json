@@ -1,28 +1,23 @@
 {
-    "name": "synopsis-bp",
-    "version": "0.0.0",
+    "name": "synopsis-discord-bot",
+    "version": "0.1.0",
     "engines": {
         "node": ">= 16.13 <17"
     },
     "author": {
         "email": "MastonDZN@users.noreply.github.com",
-        "name": "MastonDZN",
-        "url": "https://github.com/MastonDZN"
+        "name": "Maston",
+        "url": "https://github.com/mastondzn"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/MastonDZN/synopsis-bp"
+        "url": "https://github.com/MastonDZN/synopsis-discord-bot"
     },
     "bugs": {
-        "url": "https://github.com/MastonDZN/synopsis-bp/issues"
+        "url": "https://github.com/MastonDZN/synopsis-discord-bot/issues"
     },
     "keywords": [
-        "template",
-        "boilerplate",
-        "node",
-        "typescript",
-        "jest",
-        "prettier"
+       "discord.js"
     ],
     "license": "Apache-2.0",
     "devDependencies": {
