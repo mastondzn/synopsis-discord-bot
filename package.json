@@ -17,7 +17,7 @@
         "url": "https://github.com/MastonDZN/synopsis-discord-bot/issues"
     },
     "keywords": [
-       "discord.js"
+        "discord.js"
     ],
     "license": "Apache-2.0",
     "devDependencies": {
@@ -51,7 +51,7 @@
         "start": "ts-node-dev src/main.ts",
         "start:prod": "node ./build/src/main.js",
         "start:r": "ts-node-dev --respawn src/main.ts",
-        "playground": "ts-node-dev src/playground/playground.ts",
+        "playground": "ts-node src/playground/playground.ts",
         "playground:r": "ts-node-dev --respawn src/playground/playground.ts",
         "build": "tsc -p tsconfig.json",
         "build:watch": "tsc -w -p tsconfig.json",
@@ -65,5 +65,14 @@
         "format:fix": "prettier --write ./**/*.{js,jsx,ts,tsx,json,md,yaml}",
         "spelling": "cspell **/*.{js,jsx,ts,tsx,md,json}",
         "clean": "rimraf coverage build tmp"
+    },
+    "dependencies": {
+        "@mikro-orm/core": "^5.1.2",
+        "@mikro-orm/mongodb": "^5.1.2",
+        "discord.js": "^13.6.0",
+        "dotenv": "^16.0.0",
+        "ioredis": "^5.0.4",
+        "p-event": "^5.0.1",
+        "undici": "^5.0.0"
     }
 }
