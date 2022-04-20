@@ -34,6 +34,9 @@ module.exports = {
         'simple-import-sort/exports': 'warn',
         'simple-import-sort/imports': 'warn',
         'sort-keys-fix/sort-keys-fix': 'warn',
+
+        // enforce import type
+        '@typescript-eslint/consistent-type-imports': 'warn',
     },
     settings: {},
 };
