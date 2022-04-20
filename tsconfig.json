@@ -35,5 +35,9 @@
         "importHelpers": true /* Allow importing helper functions from tslib once per project, instead of including them per-file. */,
         "stripInternal": true /* Disable emitting declarations that have @internal in their JSDoc comments. */
     },
+    "ts-node": {
+        "files": true,
+        "pretty": true
+    },
     "exclude": ["build", "node_modules", "coverage"]
 }
