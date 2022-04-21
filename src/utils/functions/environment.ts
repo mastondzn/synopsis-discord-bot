@@ -1,22 +1,14 @@
-//  TODO: if we change the environment variables this file should change too
+import fs from 'node:fs/promises';
 
 /**
  * Checks if environment variables are currently loaded
  * @returns Returns true if all the wanted environment variables are strings
  */
-export const checkEnvironmentVariables = (): boolean => {
-    const variables = [
-        'NODE_ENV',
-        'MONGODB_DB_NAME',
-        'MONGODB_URL',
-        'REDIS_HOST',
-        'REDIS_PORT',
-        'REDIS_PWD',
-    ];
+export const checkEnvironmentVariables = async (): Promise<boolean> => {
+    const variableKeys = await readEnvironmentVariableKeys();
 
     let ok = true;
-
-    for (const variable of variables) {
+    for (const variable of variableKeys) {
         if (typeof process.env[variable] !== 'string') ok = false;
     }
 
@@ -38,7 +30,7 @@ export const loadAndCheckEnvironmentVariables = async (
     throwOnFail = true,
 ): Promise<boolean> => {
     await loadEnvironmentVariables();
-    const ok = checkEnvironmentVariables();
+    const ok = await checkEnvironmentVariables();
 
     if (throwOnFail && !ok) {
         throw new Error(
@@ -47,4 +39,21 @@ export const loadAndCheckEnvironmentVariables = async (
     }
 
     return ok;
+};
+
+/**
+ * Reads .env.example for variable keys, for checking purposes
+ * @returns Returns an array with all the environment variable keys
+ */
+export const readEnvironmentVariableKeys = async (): Promise<string[]> => {
+    // read .env.example file
+    const file = await fs.readFile('.env.example', 'utf8');
+
+    const keys = file
+        .split('\n')
+        .filter((line) => line.includes('='))
+        .map((line) => /^\w+/.exec(line)?.[0])
+        .filter((element) => Boolean(element));
+
+    return keys as string[];
 };
