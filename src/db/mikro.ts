@@ -1,28 +1,41 @@
-import type { EntityClass } from '@mikro-orm/core';
 import { MikroORM } from '@mikro-orm/core';
 import type { MongoDriver } from '@mikro-orm/mongodb';
 
-import type { MikroWithMongoDriverOptions } from '../utils/types/index';
-import { entities } from './entities';
+import type { MikroWithMongoDriverOptions } from '../utils/types';
+import * as objectOfEntities from './entitites';
 
-export const makeMikroORM = async (
-    options?: MikroWithMongoDriverOptions,
-    entities?: EntityClass<unknown>[],
-    includeEnvironmentAsDefaults = true,
+type Key = keyof typeof objectOfEntities;
+type Entity = typeof objectOfEntities[Key];
+
+const entities: Entity[] = [];
+
+let key: Key;
+for (key in objectOfEntities) {
+    entities.push(objectOfEntities[key]);
+}
+
+const createURL = (username: string, password: string) => {
+    return `mongodb://${username}:${password}@localhost:27017/?authMechanism=DEFAULT&authSource=admin`;
+};
+
+export const makeMikroORM = (
+    options?: Omit<MikroWithMongoDriverOptions, 'entities'>,
+    useDefaults = true,
 ) => {
-    options = includeEnvironmentAsDefaults
+    options = useDefaults
         ? {
-              clientUrl: process.env.MONGODB_URL,
-              dbName: process.env.MONGODB_DB_NAME,
+              clientUrl: createURL(
+                  process.env.MONGO_USERNAME,
+                  process.env.MONGO_PASSWORD,
+              ),
+              dbName: 'synopsisdiscordbot',
               ...options,
           }
         : { ...options };
 
-    const orm = await MikroORM.init<MongoDriver>({
+    return MikroORM.init<MongoDriver>({
         ...options,
         entities,
         type: 'mongo',
     });
-
-    return orm;
 };
