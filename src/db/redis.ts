@@ -9,7 +9,6 @@ export const makeRedisDB = async (
         ? {
               host: process.env.REDIS_HOST,
               password: process.env.REDIS_PWD,
-              port: Number.parseInt(process.env.REDIS_PORT, 10),
               ...options,
           }
         : { ...options };
