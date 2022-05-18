@@ -1,4 +1,5 @@
-module.exports = {
+/** @type {import('cspell').CSpellUserSettings} */
+const config = {
     version: '0.2',
     language: 'en',
     ignorePaths: [
@@ -46,3 +47,5 @@ module.exports = {
     ],
     words: ['builtins'],
 };
+
+module.exports = config;
