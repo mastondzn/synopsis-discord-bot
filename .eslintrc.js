@@ -1,4 +1,5 @@
-module.exports = {
+/** @type {import('@types/eslint').Linter.Config} */
+const config = {
     env: {
         browser: false,
         es6: true,
@@ -13,7 +14,6 @@ module.exports = {
         '@typescript-eslint',
         'eslint-comments',
         'jest',
-        'sort-keys-fix',
         'simple-import-sort',
         'promise',
         'unicorn',
@@ -30,13 +30,29 @@ module.exports = {
         'prettier',
     ],
     rules: {
-        // sorting imports and object keys
+        // sorting imports
         'simple-import-sort/exports': 'warn',
         'simple-import-sort/imports': 'warn',
-        'sort-keys-fix/sort-keys-fix': 'warn',
 
         // enforce import type
         '@typescript-eslint/consistent-type-imports': 'warn',
+
+        // NOIDONTHINKSO
+        'unicorn/no-null': 'off',
+
+        // do not replace env with 'environment' and 'args' with 'arguments'
+        'unicorn/prevent-abbreviations': [
+            'error',
+            {
+                extendDefaultReplacements: true,
+                replacements: {
+                    args: false,
+                    env: false,
+                },
+            },
+        ],
     },
     settings: {},
 };
+
+module.exports = config;
