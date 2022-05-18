@@ -39,5 +39,5 @@
         "files": true,
         "pretty": true
     },
-    "exclude": ["build", "node_modules", "coverage"]
+    "exclude": ["node_modules", "build", "coverage"]
 }
