@@ -1,9 +1,8 @@
 {
     "configurations": [
         {
-            "name": "Build and Launch Program",
-            "outFiles": ["${workspaceFolder}/build/**/*.js"],
-            "preLaunchTask": "yarn: build",
+            "name": "Build and launch",
+            "preLaunchTask": "tsc: build - tsconfig.json",
             "program": "${workspaceFolder}/src/main.ts",
             "request": "launch",
             "resolveSourceMapLocations": [
