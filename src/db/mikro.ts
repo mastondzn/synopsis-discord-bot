@@ -1,5 +1,6 @@
 import { MikroORM } from '@mikro-orm/core';
 import type { MongoDriver } from '@mikro-orm/mongodb';
+import isDocker from 'is-docker';
 
 import type { MikroWithMongoDriverOptions } from '../utils/types';
 import * as objectOfEntities from './entitites';
@@ -15,7 +16,8 @@ for (key in objectOfEntities) {
 }
 
 const createURL = (username: string, password: string) => {
-    return `mongodb://${username}:${password}@localhost:27017/?authMechanism=DEFAULT&authSource=admin`;
+    const host = isDocker() ? 'mongo' : 'localhost';
+    return `mongodb://${username}:${password}@${host}:27017/?authMechanism=DEFAULT&authSource=admin`;
 };
 
 export const makeMikroORM = (
