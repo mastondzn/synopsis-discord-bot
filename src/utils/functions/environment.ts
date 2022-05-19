@@ -1,24 +1,62 @@
+import dotenv from 'dotenv';
 import fs from 'node:fs/promises';
+
+export const lineRegex =
+    /^\s*(?:export\s+)?([\w.-]+)(?:\s*=\s*?|:\s+?)(\s*'(?:\\'|[^'])*'|\s*"(?:\\"|[^"])*"|\s*`(?:\\`|[^`])*`|[^\n\r#]+)?\s*(?:#.*)?$/;
+
+/**
+ * Reads .env.example for variable keys, for checking purposes
+ * @returns Returns an array with all the environment variable keys
+ */
+export const readEnvironmentVariableKeys = async (): Promise<string[]> => {
+    // read .env.example file
+
+    const file = await fs.readFile('.env.example', 'utf8');
+    const lines = file.split('\n').filter(Boolean);
+
+    const keys: string[] = [];
+    for (const line of lines) {
+        const match = line.match(lineRegex);
+        if (match) {
+            const [, key] = match;
+            keys.push(key);
+        }
+    }
+
+    return keys;
+};
 
 /**
  * Checks if environment variables are currently loaded
- * @returns Returns true if all the wanted environment variables are strings
+ * @returns true if all the wanted environment variables are strings
  */
-export const checkEnvironmentVariables = async (): Promise<boolean> => {
-    const variableKeys = await readEnvironmentVariableKeys();
+export const checkEnvironmentVariables = async (
+    throwOnFail = true,
+): Promise<boolean> => {
+    const keys = await readEnvironmentVariableKeys();
 
     let ok = true;
-    for (const variable of variableKeys) {
-        if (typeof process.env[variable] !== 'string') ok = false;
+    for (const key of keys) {
+        if (
+            typeof process.env[key] !== 'string' &&
+            process.env[key]?.length !== 0
+        ) {
+            ok = false;
+            break;
+        }
     }
+
+    if (throwOnFail && !ok)
+        throw new Error('Environment variables are not loaded');
 
     return ok;
 };
 
 /** Loads environment variables with dotenv */
-export const loadEnvironmentVariables = async (): Promise<void> => {
-    const dotenv = await import('dotenv');
-    dotenv.config();
+export const loadEnvironmentVariables = (throwOnFail = true): void => {
+    const result = dotenv.config();
+
+    if (throwOnFail && result.error) throw result.error;
 };
 
 /**
@@ -29,8 +67,8 @@ export const loadEnvironmentVariables = async (): Promise<void> => {
 export const loadAndCheckEnvironmentVariables = async (
     throwOnFail = true,
 ): Promise<boolean> => {
-    await loadEnvironmentVariables();
-    const ok = await checkEnvironmentVariables();
+    loadEnvironmentVariables(throwOnFail);
+    const ok = await checkEnvironmentVariables(throwOnFail);
 
     if (throwOnFail && !ok) {
         throw new Error(
@@ -39,21 +77,4 @@ export const loadAndCheckEnvironmentVariables = async (
     }
 
     return ok;
-};
-
-/**
- * Reads .env.example for variable keys, for checking purposes
- * @returns Returns an array with all the environment variable keys
- */
-export const readEnvironmentVariableKeys = async (): Promise<string[]> => {
-    // read .env.example file
-    const file = await fs.readFile('.env.example', 'utf8');
-
-    const keys = file
-        .split('\n')
-        .filter((line) => line.includes('='))
-        .map((line) => /^\w+/.exec(line)?.[0])
-        .filter((element) => Boolean(element));
-
-    return keys as string[];
 };
