@@ -1,7 +1,4 @@
-export function add(a: number, b: number): number {
-    return a + b;
-}
+import { Synopsisbot } from './bot';
 
-export function subtract(a: number, b: number): number {
-    return a - b;
-}
+const bot = new Synopsisbot();
+void bot.initialize();
