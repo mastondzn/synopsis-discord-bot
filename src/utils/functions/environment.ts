@@ -35,19 +35,25 @@ export const checkEnvironmentVariables = async (
 ): Promise<boolean> => {
     const keys = await readEnvironmentVariableKeys();
 
+    let failedAt: string | undefined;
     let ok = true;
     for (const key of keys) {
         if (
-            typeof process.env[key] !== 'string' &&
-            process.env[key]?.length !== 0
+            typeof process.env[key] !== 'string' ||
+            process.env[key]?.length === 0
         ) {
             ok = false;
+            failedAt = key;
             break;
         }
     }
 
     if (throwOnFail && !ok)
-        throw new Error('Environment variables are not loaded');
+        throw new Error(
+            `Environment variables are not loaded (failed at ${
+                failedAt ?? 'unknown'
+            })`,
+        );
 
     return ok;
 };
