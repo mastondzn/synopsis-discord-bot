@@ -24,8 +24,6 @@ void (async () => {
         return;
     }
 
-    logger.info(process.env);
-
     for (const [, guild] of guilds) {
         const { id: guildId, name: guildName } = guild;
         logger.info(
