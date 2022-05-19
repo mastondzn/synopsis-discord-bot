@@ -1,6 +1,6 @@
 import { Routes } from 'discord-api-types/v10';
 
-import { Synopsisbot } from '../src/client';
+import { Synopsisbot } from '../src/bot';
 import { commands } from '../src/discord/command-collection';
 
 void (async () => {

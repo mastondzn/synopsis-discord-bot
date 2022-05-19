@@ -1,6 +1,6 @@
 import type { ClientEvents } from 'discord.js';
 
-import type { Synopsisbot } from '../../client';
+import type { Synopsisbot } from '../../bot';
 
 export type EventHandler = keyof ClientEvents extends infer E
     ? E extends keyof ClientEvents

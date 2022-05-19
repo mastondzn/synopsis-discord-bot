@@ -1,7 +1,7 @@
 import type { SlashCommandBuilder } from '@discordjs/builders';
 import type { CommandInteraction, MessageEmbed } from 'discord.js';
 
-import type { Synopsisbot } from '../../client';
+import type { Synopsisbot } from '../../bot';
 
 export interface CommandResultWithTextOnly {
     content: string;
