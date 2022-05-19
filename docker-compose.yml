@@ -1,0 +1,22 @@
+services:
+    app:
+        build: .
+        image: synopsis-discord-bot
+        container_name: synopsis-discord-bot
+        restart: unless-stopped
+        environment:
+            - NODE_ENV=${NODE_ENV?err}
+            - MONGO_USERNAME=${MONGO_USERNAME?err}
+            - MONGO_PASSWORD=${MONGO_PASSWORD?err}
+            - REDIS_PASSWORD=${REDIS_PASSWORD?err}
+            - DISCORD_BOT_AUTH=${DISCORD_BOT_AUTH?err}
+            - DISCORD_BOT_STAGING_AUTH=${DISCORD_BOT_STAGING_AUTH?err}
+        volumes:
+            - ~/logs/synopsis-discord-bot:/app/logs
+        networks:
+            - default
+
+networks:
+    default:
+        external:
+            name: synopsis-network
