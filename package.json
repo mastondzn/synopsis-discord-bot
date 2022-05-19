@@ -54,6 +54,7 @@
         "start:r": "ts-node-dev --respawn src/main.ts",
         "playground": "ts-node playground/playground.ts",
         "playground:r": "ts-node-dev --respawn playground/playground.ts",
+        "scripts:commands": "ts-node scripts/put-commands.ts",
         "build": "tsc",
         "build:watch": "tsc -w",
         "test": "jest --verbose",
