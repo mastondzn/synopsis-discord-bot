@@ -28,6 +28,9 @@ jobs:
             - name: Run ESLint
               run: yarn lint
 
+            - name: Check build
+              run: yarn typecheck
+
             - name: Run Tests
               run: yarn test
 
