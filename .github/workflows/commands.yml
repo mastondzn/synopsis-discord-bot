@@ -1,15 +1,15 @@
-name: Overwrite guild bot commands
+name: Overwrite commands
 
 on:
     push:
         branches: [main]
         paths:
-            - 'src/discord/commands'
+            - 'src/discord/commands/**'
     workflow_dispatch:
 
 jobs:
     commands:
-        name: Execute
+        name: Overwrite commands to Discord
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repository
@@ -26,4 +26,7 @@ jobs:
               run: yarn install --immutable
 
             - name: Run script
+              env:
+                  DISCORD_BOT_AUTH: ${{ secrets.DISCORD_BOT_AUTH }}
+                  DISCORD_BOT_STAGING_AUTH: ${{ secrets.DISCORD_BOT_STAGING_AUTH }}
               run: yarn script:commands prod dev
