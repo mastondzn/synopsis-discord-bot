@@ -1,10 +1,10 @@
 import { Routes } from 'discord-api-types/v10';
 
-import { Synopsisbot } from '../src/bot';
+import { Bot } from '../src/bot';
 import { commands } from '../src/discord/command-collection';
 
 void (async () => {
-    const bot = new Synopsisbot({
+    const bot = new Bot({
         isInAScriptContext: true,
     });
     await bot.initialize();

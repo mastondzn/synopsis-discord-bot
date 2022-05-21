@@ -1,7 +1,7 @@
 import type { SlashCommandBuilder } from '@discordjs/builders';
 import type { CommandInteraction, MessageEmbed } from 'discord.js';
 
-import type { Synopsisbot } from '../../bot';
+import type { Bot } from '../../bot';
 
 export interface CommandResultWithTextOnly {
     content: string;
@@ -26,8 +26,5 @@ export type CommandResult =
 export interface BotCommand {
     data: SlashCommandBuilder;
 
-    run: (
-        bot: Synopsisbot,
-        interaction: CommandInteraction,
-    ) => Promise<CommandResult>;
+    run: (bot: Bot, interaction: CommandInteraction) => Promise<CommandResult>;
 }

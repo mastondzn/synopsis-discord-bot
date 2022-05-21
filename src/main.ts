@@ -1,4 +1,4 @@
-import { Synopsisbot } from './bot';
+import { Bot } from './bot';
 
-const bot = new Synopsisbot();
+const bot = new Bot();
 void bot.initialize();

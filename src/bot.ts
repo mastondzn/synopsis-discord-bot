@@ -24,7 +24,7 @@ export interface BotOptions {
     forceAuth?: 'prod' | 'staging';
 }
 
-export class Synopsisbot {
+export class Bot {
     client: Client;
     logger: Logger;
     discordRest: REST;
@@ -112,7 +112,7 @@ export class Synopsisbot {
                     // jfc this is so dumb
 
                     type HandlerRunner = (
-                        bot: Synopsisbot,
+                        bot: Bot,
                         ...args: ClientEvents[keyof ClientEvents]
                     ) => unknown;
 
