@@ -29,4 +29,4 @@ jobs:
               env:
                   DISCORD_BOT_AUTH: ${{ secrets.DISCORD_BOT_AUTH }}
                   DISCORD_BOT_STAGING_AUTH: ${{ secrets.DISCORD_BOT_STAGING_AUTH }}
-              run: yarn script:commands prod dev
+              run: yarn scripts:commands prod dev
