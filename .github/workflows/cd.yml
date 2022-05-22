@@ -12,6 +12,7 @@ on:
 jobs:
     deploy:
         runs-on: ubuntu-latest
+        if: ${{ github.event.workflow_run.conclusion == 'success' }}
         steps:
             - name: SSH into VPS, and docker-compose up with rebuild
               uses: appleboy/ssh-action@master
@@ -30,3 +31,9 @@ jobs:
                       cd synopsis-discord-bot/
                       git pull
                       docker compose -p synopsis-discord-bot up -d --build
+
+    warn:
+        runs-on: ubuntu-latest
+        if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+        steps:
+            - run: echo 'Tests failed, did not attempt to deploy.'
