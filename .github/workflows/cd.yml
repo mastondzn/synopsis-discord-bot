@@ -1,0 +1,28 @@
+name: CD
+
+on:
+    push:
+        branches: [main]
+    workflow_dispatch:
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: SSH into VPS, and docker-compose up with rebuild
+              uses: appleboy/ssh-action@master
+              with:
+                  host: ${{ secrets.VPS_PUBLIC_IP_ADDRESS }}
+                  username: root
+                  password: ${{ secrets.VPSPASSWORD }}
+                  script_stop: true
+                  script: |
+                      export NODE_ENV-"production"
+                      export MONGO_PASSWORD="${{ secrets.MONGO_PASSWORD }}"
+                      export MONGO_USERNAME="${{ secrets.MONGO_USERNAME }}"
+                      export REDIS_PASSWORD="${{ secrets.REDIS_PASSWORD }}"
+                      export DISCORD_BOT_AUTH="${{ secrets.DISCORD_BOT_AUTH }}"
+                      export DISCORD_BOT_STAGING_AUTH="${{ secrets.DISCORD_BOT_STAGING_AUTH }}"
+                      cd synopsis-discord-bot/
+                      docker compose -p synopsis-discord-bot up -d --build
