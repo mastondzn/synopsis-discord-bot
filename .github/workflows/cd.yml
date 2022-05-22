@@ -28,4 +28,5 @@ jobs:
                       export DISCORD_BOT_AUTH="${{ secrets.DISCORD_BOT_AUTH }}"
                       export DISCORD_BOT_STAGING_AUTH="${{ secrets.DISCORD_BOT_STAGING_AUTH }}"
                       cd synopsis-discord-bot/
+                      git pull
                       docker compose -p synopsis-discord-bot up -d --build
