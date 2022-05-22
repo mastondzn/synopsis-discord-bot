@@ -18,7 +18,7 @@ jobs:
               with:
                   host: ${{ secrets.VPS_PUBLIC_IP_ADDRESS }}
                   username: root
-                  password: ${{ secrets.VPSPASSWORD }}
+                  password: ${{ secrets.VPS_PASSWORD }}
                   script_stop: true
                   script: |
                       export NODE_ENV-"production"
