@@ -21,7 +21,7 @@ jobs:
                   password: ${{ secrets.VPS_PASSWORD }}
                   script_stop: true
                   script: |
-                      export NODE_ENV-"production"
+                      export NODE_ENV="production"
                       export MONGO_PASSWORD="${{ secrets.MONGO_PASSWORD }}"
                       export MONGO_USERNAME="${{ secrets.MONGO_USERNAME }}"
                       export REDIS_PASSWORD="${{ secrets.REDIS_PASSWORD }}"
